@@ -15,9 +15,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 const SpotifyToApple = () => {
   const [isLoading, setIsLoading] = useState(false); // Track loading state
+  const [trackInfo, setTrackInfo] = useState("");
   const formSchema = z.object({
     URL: z.string().url({ message: "Please enter a valid URL." }),
   });
@@ -39,8 +42,16 @@ const SpotifyToApple = () => {
           url: encodedTrackURL,
         },
       });
+      const trackInfo = {
+        trackName: response.data.trackName,
+        trackArtist: response.data.trackArtist,
+        trackAlbum: response.data.trackAlbum,
+      };
       // Implement what to do with the response apple music link
       console.log(response.data);
+      setTrackInfo(
+        `Track Name: ${trackInfo.trackName}\nArtist: ${trackInfo.trackArtist}\nAlbum: ${trackInfo.trackAlbum}`
+      );
     } catch (error) {
       console.error(error);
     }
@@ -76,6 +87,10 @@ const SpotifyToApple = () => {
             "Find Song"
           )}
         </Button>
+        <div className="flex flex-col w-full space-y-2">
+          <Label htmlFor="message">Debug Window</Label>
+          <Textarea placeholder={trackInfo} id="message" />
+        </div>
       </form>
     </Form>
   );
