@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,9 +15,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import DemoPage from "./songDetails/page";
 
 const SpotifyToApple = () => {
   const [isLoading, setIsLoading] = useState(false); // Track loading state
@@ -31,7 +33,11 @@ const SpotifyToApple = () => {
       URL: "",
     },
   });
-
+  type trackInfo = {
+    trackName: string;
+    trackArtist: string;
+    trackAlbum: string;
+  };
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const encodedTrackURL = encodeURI(values.URL);
     const serverUrl = "http://localhost:3001/get-song";
@@ -91,6 +97,7 @@ const SpotifyToApple = () => {
           <Label htmlFor="message">Debug Window</Label>
           <Textarea placeholder={trackInfo} id="message" />
         </div>
+        <DemoPage />
       </form>
     </Form>
   );
