@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowUpDown } from "lucide-react";
@@ -11,6 +11,33 @@ export type Song = {
   trackName: string;
   trackArtist: string;
   trackURL: string;
+};
+
+const CellActions: React.FC<{ row: any }> = ({ row }) => {
+  const song = row.original;
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyClick = (url: string) => {
+    navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1500);
+  };
+
+  return (
+    <Button
+      className="flex justify-center"
+      variant="ghost"
+      onClick={() => handleCopyClick(song.trackURL)}
+    >
+      {copied ? (
+        <ClipboardCheck className="h-4 w-4" />
+      ) : (
+        <Clipboard className="h-4 w-4" />
+      )}
+    </Button>
+  );
 };
 
 export const columns: ColumnDef<Song>[] = [
@@ -57,29 +84,6 @@ export const columns: ColumnDef<Song>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const song = row.original;
-      const [copied, setCopied] = useState(false);
-      const handleCopyClick = (url: string) => {
-        navigator.clipboard.writeText(url);
-        setCopied(true);
-        setTimeout(() => {
-          setCopied(false);
-        }, 1500);
-      };
-      return (
-        <Button
-          className="flex justify-center"
-          variant="ghost"
-          onClick={() => handleCopyClick(song.trackURL)}
-        >
-          {copied ? (
-            <ClipboardCheck className="h-4 w-4" />
-          ) : (
-            <Clipboard className="h-4 w-4" />
-          )}
-        </Button>
-      );
-    },
+    cell: CellActions,
   },
 ];

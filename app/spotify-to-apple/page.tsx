@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Song } from "./songDetails/columns";
+import { Song } from "../../components/songDetails/columns";
 import { v4 as uuidv4 } from "uuid";
 import {
   Form,
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import SongDetailsTable from "./songDetails/page";
+import SongDetailsTable from "../../components/songDetails/page";
 
 const SpotifyToApple = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +34,7 @@ const SpotifyToApple = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const encodedTrackURL = encodeURI(values.URL);
-    const serverUrl = "http://localhost:3001/get-song";
+    const serverUrl = "http://18.234.40.115:3001/get-song";
     setIsLoading(true);
     try {
       const response = await axios.get(serverUrl, {
@@ -52,7 +52,6 @@ const SpotifyToApple = () => {
         },
       ];
       setTrackDetails(trackDetails);
-      console.log("page.tsx", trackDetails);
     } catch (error) {
       console.error(error);
     }
