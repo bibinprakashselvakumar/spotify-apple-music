@@ -1,23 +1,33 @@
-import { song, columns } from "./columns";
+import { Song, columns } from "./columns";
 import { DataTable } from "./data-table";
 
-function getData(): song[] {
+function getData(): Song[] {
   return [
     {
       id: "728ed52f",
-      songName: "Cruel Summer",
-      Artist: "Taylor Swift",
+      trackName: "Cruel Summer",
+      trackArtist: "Taylor Swift",
+      trackURL: "www.bibinprakash.info",
     },
     {
       id: "728ed52g",
-      songName: "Lover",
-      Artist: "Taylor Swift",
+      trackName: "Lover",
+      trackArtist: "Taylor Swift",
+      trackURL: "www.bibinprakash.info",
+    },
+    {
+      id: "728ed52h",
+      trackName: "Bad Blood",
+      trackArtist: "Taylor Swift",
+      trackURL: "www.bibinprakash.info",
     },
   ];
 }
-
-export default function DemoPage() {
-  const data = getData();
+interface SongDetailsTableProps {
+  data: Song[];
+}
+export default function SongDetailsTable({ data }: SongDetailsTableProps) {
+  // const data = getData();
 
   return (
     <div className="container mx-auto py-10">

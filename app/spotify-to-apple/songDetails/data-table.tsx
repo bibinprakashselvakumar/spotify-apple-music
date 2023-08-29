@@ -8,6 +8,7 @@ import {
   getSortedRowModel,
   getPaginationRowModel,
   useReactTable,
+  VisibilityState,
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,6 +29,9 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState({});
   const table = useReactTable({
     data,
     columns,
@@ -35,8 +39,12 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
+      columnVisibility,
+      rowSelection,
     },
   });
 
