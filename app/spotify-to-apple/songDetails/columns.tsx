@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Clipboard } from "lucide-react";
+import { Clipboard, ClipboardCheck } from "lucide-react";
 
 export type Song = {
   id: string;
@@ -73,7 +73,11 @@ export const columns: ColumnDef<Song>[] = [
           variant="ghost"
           onClick={() => handleCopyClick(song.trackURL)}
         >
-          {copied ? "copied" : <Clipboard className="h-4 w-4" />}
+          {copied ? (
+            <ClipboardCheck className="h-4 w-4" />
+          ) : (
+            <Clipboard className="h-4 w-4" />
+          )}
         </Button>
       );
     },
