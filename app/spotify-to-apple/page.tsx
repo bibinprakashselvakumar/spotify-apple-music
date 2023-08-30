@@ -34,7 +34,7 @@ const SpotifyToApple = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const encodedTrackURL = encodeURI(values.URL);
-    const serverUrl = "18.234.40.115:3001/get-song";
+    const serverUrl = "http://18.234.40.115:3001/get-song";
     setIsLoading(true);
     try {
       const response = await axios.get(serverUrl, {
